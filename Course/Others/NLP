@@ -1,0 +1,511 @@
+############################################### Natural Language Processing #####################################################
+
+https://www.youtube.com/watch?v=Bex-G6sbjeE&list=PL7HAy5R0ehQVdPVLV6pIJA9ZE2vVyLRxX&index=1
+
+
+############################## Codigo Espinoza ####################################
+
+I/ Vectors 
+ -Transform text data into vectors to be able to process it. => Spam detection using vectors.
+ -The goal is to obtain a respresentation of vectors "useful"
+ -How to obtain such vectorial representations?
+
+ II/ Bag of words (technic)
+  -Represent each word of a sentence as a vector of values or as a dimension of the vector. 
+  -Doesn't take order of the word into consideration => with this technic: "The cat eat the mouse" == "The mouse eat the cat"
+  -Applications: vectorial models / automatic learning "classical" / spam detection / sentiment analysis
+  -We will comapre this with other methods (probabilistic and deep learning)
+
+III/ Counting method
+  -Description of the method of how to convert text into vectors
+  -This method is like an instance of the "bag of words" concept.
+  -A document will be the object of our work: a tweet, a text document, a sentence...
+  -Process to dertermine the size of the vocabulary
+  -We create a matrix of all the words in all the documents, & count it by document (id= words, columns = document(i)) 
+  -Technical challenges: Tokenization, Mapping
+
+ 
+  Mapping: Ce processus de mapping transforme donc chaque token en une représentation vectorielle ou un indice numérique.
+
+IV/ Tokenization
+  -tokenization est le processus de découpage d'un texte en unités plus petites appelées tokens. Ces tokens peuvent être des mots, des sous-mots, des phrases, ou même des caractères, selon le niveau de granularité souhaité.
+  -A token will be the "unidades individuales" of a text.
+  -A good example of that is the split() fuction in python
+  -Comparison between old and modern tokenization: Use to be very simple, today is much more sophisticated (take punctuation into account, special characters...)
+  - Word based [The, cat, eats, the, mouse], characters based [T,h,e,c,a,t...] or sub-words (automovil => [auto , movil])
+  -Quantity of data (text/words) is very important in such analysis
+  - Example: "hola" != "Hola" for a machine. => To solve this, use lower() function in python
+
+
+V/ Stop Words
+  -Group of words that are considered as irrelevant for a text analysis, within a specifig language (the, is, and ...), reduces a lot the dimensions of the vectors.
+  -Python tools:
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+stop_words = set(stopwords.words('english'))
+print(stop_words)
+
+VI/ Stemming and Lemmatization
+  -Issues with tokenization: Similar words will be treated as separated entities (caminar != caminando) => high dimensionality
+  -When put into application (creating a moteur de recherche for example), this will mislead the results.tokenize
+  -How to solve? Stemming and lemmatization
+  -Stemming => drop the suffixes of the words. Caminando => Camin
+  -Lemmatization is more advanced and use some language rules to obtain the root of the word.
+  -Python:
+nltk.download('wordnet')
+from nltk.stem import SnowballStemmer
+stemmer = SnowballStemmer('spanish') 
+print(stemmer.stem("caminando"))
+print(stemmer.stem("caminar"))
+print(stemmer.stem("camino")) #all equal
+
+pip install spacy -q
+!python -m spacy download es_core_news_sm -q 
+import spacy
+#cargar el modelo en espanol
+nlp = spacy.load('es_core_news_sm')
+#crear un documento
+doc = nlp(" camniar cminando camino")
+#imprimir el texto y el lema de cada token del documento
+for token in doc:
+	print(token.text, "->", token.lemma) # all "caminar"
+
+  -Lemma can be more efficient than stemming, but also more demanding in resources
+  -Applications of these technics: Chatbots, sentiment analysis, searching engine, recommendation ystems...
+
+  
+
+VII/ Vectors similarity
+  - Applications: similarities between documents, recommendations, chat bots, SEO...
+  -How to compute the distance between 2 vectors? 
+  - Euclidian distance d(p,q)²= (q1 - p1)² + (q2 - p2)² (composante verticale et composante horizontale)
+  -Angle between vectors (more relevant then E.distance)
+
+
+
+VIII/ TF_IDF (term frefquency - inverse document frequency)
+  -We saw that in the first method of counting words, we don't take into account the relevancy of a words
+  TF IDF decreases the weight of common words and increases the weight of words with low frequency
+  - Using stop words can be usefull
+  - But stop words can be tricky:sometimes they are, sometimes they are not, depending on the context
+  - TF_IDF = TF(t,d) x IDF(t,D)
+  - TF(t,d) = how many times "t" appears in a doc(d) / total words in doc(d)
+  - IDF(t,D) = log_e(Numbers of docs in the corpus D) / Numbers of documents where word "t" is)
+
+
+IX/ Neural Word Embeddings
+  -Other form of vectorizing text => each word will be vectors :
+  words = {"cat": [0.1,0.9]
+           "dog": [0.15,0.85]} #these 2 vectors are almost equal
+  - So 3 ways to vectorize: 1.Documents to vectors (bag of words, tf-idf) 2.Word to vector 3.Embeddings:les embeddings (ou "vecteurs d’embedding") sont des représentations 
+vectorielles de mots, phrases, ou documents qui traduisent les éléments textuels en vecteurs numériques
+  -Models for sequences in deep learning: La elección del modelo para secuencias en aprendizaje profundo depende del tipo de datos, la tarea específica y los requisitos de 
+endimiento. Las RNN, LSTM, GRU y Transformers son algunas de las arquitecturas más populares y efectivas en este campo, cada una con sus propias ventajas y desventajas.
+  -Applications in translateing, answer to questions, chat bots...
+  -The order of the words in a sentence IS IMPORTANT in this methods
+
+  -Introduction of Word2Vec and GloVe
+  -Use of neural nets in Word2Vec (Continuous Bag of Words (CBOW) and Skip-Gram)
+  -Description of GloVe and its relationship with recommendation systems
+  -General description of the building of a neural net
+
+  -Word Embedding allows to do analogies (Madrid => Espana, Berlin => Alemania), relationship wetween 2 different words  
+
+X/ Markov Processes
+  -Describe systems that change state over time with probabilities
+  -Finance, Occulte Markov Models, MCMC (Markov Chain Monte Carlo)
+  -Transition States Matrix (differents etats et probabilité de passer à un état sachant l'etat à t)
+  -Application in NLP: Text classification, Text generation, difference between supervised and unsupervised leraning
+  -Allow to forecast the future sentence. Example: P("azul"|"cielo") = 0.8
+  -Transition Matrix exemple in ptyhon (assuming homogeneity in time): transit = { 'A': { 'A':0.6, 'B':0.3, 'C':0.1},
+                                                                                   'B': { 'A':0.5, 'B':0.3, 'C':0.2},
+                                                                                   'C': { 'A':0.2, 'B':0.4, 'C':0.4},
+                                                                                 } #dictionnary of dictionnaries
+  -Usually computed through history data
+  -Estimation du Maximum de Vraisemblance: P(word2|word1) = count(words1,word2)/count(word1). Si "dog" appear 100 times in a text and if the sequence "dog barks" appears 10 sometimes
+then P("bark"|"dog") = 0.1. But with thios definition if one sequence never appears; then the Proba is 0, this not something we want (such a sequence is always possible).
+  -Solution for this issue: Smoothing.Documents
+
+  Smoothing+1: If there are 1000 words in the doc and if "cat came" never appears => P+1("came"|"cat") = (0 + 1)/(count("cat") + 1000)
+  Smoothing Epsilon (using Epsilon = 0.1). Pepsilon("came"|"cat") = (0 + 0.1)/ (count"cat" + 100*0.1)
+  Generalizing: P(sequence(n)) = P(word(1)*P(word(2)|word(1)*...* P(word(n)|word(n-1))  
+  This can lead to very very little probas for a sequence. So we can use Log of the proba. => Log(P("the cat sleeps")) = log ((0.01)*(0.01)*0.01) = log(0.01) * 3 = (-2)*3 = -6.
+  
+XI/ Text generation with Markov Chains
+    -Predict if a mail is a spam
+    -Determine if the critic of a movie is positive or negative
+    -Example with the idea of understand what we learned:
+    
+    -Text classification is supervised learning
+    -Markov models are unsupervised
+    -We will use the Bayes Rule to combine both
+
+    -Bayes Rule and classification
+      P(Spam|"premio") =  [P("premio"|Spam)x(P(Spam))] / P("premio")
+
+
+XII/  Text generation with Markov Models:
+  - It's possible to use sevral previous words to predict the next one intead of just one word, but this makes the transition matrix grow exponentiallyh with the orders.
+  - If we take 2 previous words: Tridimension matrix A: a(ijk) = P(Xt = k | Xt-1 = j | Xt-2 = i )
+
+
+
+XIII/ Text spinning:
+  - What is it => technic of take an article already written and modify it (change sentences, words, reorganize ...), keeping the original message.tokenize
+  - Importance in the search engines 
+  - Markov models are the basic technics
+  - New technics like RNNs and Transformers
+
+
+XIV/ N-Gram:
+  - Use of models "Grand"
+  - Markov Models for spinning (we saw 1st and 2nd order)
+  => Comparison of both
+
+  - Difference between text generation and text spinning?
+  - For spinning we'll create a distribution for a word, based on the previous and the next word. P(w(t)|w(t-1),w(t+1)) " El ? brilla"
+  - P(w(t)|w(t-1),w(t+1)) = (count w(t-1)->w(t)->(wt+1)) / (count w(t-1)->ANY->(wt+1))
+
+
+XV/ Until now we saw: - Vectors based models
+                      - Porbabilities based models  
+
+    Now let's go trhough Automatic Learning
+    It will be based on what we already saw
+    Ex: -Spam Detection with Naive Bayes
+        -Sentimebnt analysis with logistic regression
+        -SEO with PCA and SVY
+        -LVA
+
+XVI/ Spam Detection
+    -Goals: describe and understand the topic of spam detection, theoritically
+    -Identificar emails that are not desirable
+    -AUtomatize the detection
+    -Description of the project: Objective Function: detect_spam that eats text or sms or mails andoutputs a 1 (spam) or 0(no spam)
+
+
+XVII/ Naive Bayes rule:
+    -P(A|B) = (P(B|A) * P(A)) / (P(B))  (A = mail Spam, B= certain words in the text)
+    -Difference between Bayes rule and Naive Bayes: in Naive Bayes we supposed the words of the text independant between them.tokenize
+    -P('ganar'y'gratis'| Spam) = P('ganar'|spam) x P("gratis"|spam) with Naive bayes.1
+    - Select the right model according to the situation: 
+    - Gaussian distributed data => Gaussian Naive Bayed
+    - Counting Data (PLN) => Multinomial Naive Bayes
+    - Binary Data Bernouilli Naive Bayes
+
+XVIII/ Logistic regression:
+    We saw 1/Vector Based Modèles 2/ Probabilistic modèles
+    Logistic regression is vector based
+    Logistic regression is a linear model ( X1 = mX2 +i  <==> w1X1 + w2X2 + b = 0)
+    Activation: if we have the line (X1+X2-1 = 0) points: (3,5), (0,2), (3,-20) we can compute and see if they are above or below the cruve (activated or not)
+    But we can have other activation functions, like sigmoid: sig(x) = 1/(1+ exp(-x)) ( y=0 when x->-inf, y->1 when x -> +inf)
+    So when the value of the sigmoid for one point if more than 0.5 activated, less -> non activated
+    Interprétation dans la classification binaire :
+Imaginons que la sortie d'un modèle soit 𝑥=2 . En appliquant la sigmoïde, la sortie devient 𝜎(2)≈0.88, ce qui peut être interprété comme une probabilité de 88% que l'échantillon appartienne à la classe 1.
+
+XIX/ Multiclass Logistic Regression:
+    Same idea of previous, except it's multiclass
+    Function Softmax: softmax(z)i = (exp(Zi) / sum(exp(zj), j from 1 to K)) which gives a vector of probas.
+    Supposons un vecteur de scores 
+    𝑧=[2,1,0.5] Calculons la softmax: [0.63,0.23,0.14] => 63% class1, 23%class2, 14% class 3
+    
+
+XX/ Text summary:
+  -Use of TF-IDF. Advantages of the tfidf: Easy to impplement, key words relevancy, adaptagbility, noise reduction 
+  -Basic path of tfidf: Divide the document into sentences -> Tokenize with tfidf -> Create TFIDF matrix -> Use of tfidf to determine the relevancy of each word.
+  -Selection of sentences for the text summary: 
+      ->Top N sentences: Can exclude important words if N too low, or include useless words if too high
+      ->Top N words/characters : Can cut sentences at half, giving a summary with no real sense
+      ->Percentages : The quality of the summary can vary regarding the size of the original document
+      ->Thresholds : If too low, some important sentences can be excluded or the summary can be too long if the opposite case
+      ->Threholds modifications with multiplicative factors: Adjust the value of the factor can be tricky
+
+
+
+
+XXI/ Text rank:
+    -Advanced method of text summary inspired by PageRank from Google. Even tho there are libraries that make the use easy, it's important to understand the concepts behind.
+    - Comparison with TFIDF method: TFIDF -> Divide text in sentences (tokens) -> TFIDF Matrix for these -> Each token is converted in a vector of values TFIDF -> Average each components -> Takje the best scores and sort them and get ur summary
+    - The big difference of TextRank is you take into account the relationships between the sentences
+    - To adapt PageRank from Google concept to text:
+      -> Texts are treated as webpages in pagerank
+      -> The links between sentences is determined thanks to the similarity of the content (cosine of tfidf vectors)
+      -> The sentences that are similar to a lot of others 'important' get a higher score.
+
+    -Understand textrank:
+      ->Representation in Graphs
+      ->Metrics of similarity
+      ->Clasification mecanism
+      ->Smoothing and regularization (The model guaranty a non null transition proba to any other sentence )
+      ->Intrepretation of results
+
+    -Summary methodology with TextRank:
+      ->Preprocess the document. tokenize the doc to get sentences.
+      ->Vectorize: Convert the tokens (sentences or words) into vectors (tfidf or bag of words...)
+      ->Compute similarities. Similarity Matrix where each element represent the similitud between 2 Tokens
+      ->Normalize, each column sum = 1
+      ->Build a chart: using Simil Matrix, get a graph where the nodes represent tokens and the edges represent similarity scores
+      ->Score nods: implement the classification mecanism Textrank in order to score each node.
+      ->Extract results: to make the summary, select sentences with the best classification. 
+
+      ##############  explication chat gpt pour le projet ###########################
+      
+      TextRank est inspiré de l'algorithme PageRank de Google. L'idée principale est de représenter les phrases ou les segments de texte comme des nœuds d'un graphe. 
+      Les liens entre les nœuds sont déterminés par la similarité cosinus entre les phrases. Une fois ce graphe construit, l'algorithme cherche à déterminer quelles 
+      sont les phrases les plus "importantes" ou les plus "centrales" dans le texte, en fonction de leurs connexions avec d'autres phrases.
+      Dans TextRank, vous construisez une matrice de similarité S
+      S entre les phrases d'un texte (par exemple, en utilisant la similarité cosinus) :
+      Calcul des valeurs propres et vecteurs propres :
+      Le rôle des valeurs propres et des vecteurs propres dans l'algorithme TextRank est lié à l'idée de "centralité" dans un graphe.
+
+      Pourquoi calculer les valeurs et vecteurs propres ?
+      Vecteurs propres (ou vecteur propre principal) : Les vecteurs propres permettent d'identifier les nœuds les plus centraux du graphe, c'est-à-dire les phrases les 
+      plus importantes. Dans le cadre de TextRank, le vecteur propre associé à la plus grande valeur propre (aussi appelé le vecteur propre principal) nous aide à 
+      identifier cette importance. Le vecteur propre principal représente un ensemble de poids associés à chaque phrase du texte.
+
+      Valeurs propres (ou la plus grande valeur propre) : La plus grande valeur propre détermine l'importance globale du graphe. Les autres valeurs propres sont 
+      liées à des aspects plus spécifiques du graphe, mais c'est la plus grande valeur propre qui représente généralement le degré de centralité des nœuds principaux.
+     
+      ##############  fin ###########################
+
+
+      XXII/ LDA: 
+        - Lane Dirichlet Allocation is a method of models of topics that identify "latents" topics in a corpus of documents.
+        - The LDA is about determine which words are most likely to appear in the same docs and decide which docs talk about chich topics
+        - Applications: Topics discovery / Dimensionalmity reduction / Recommandations
+        - UNSUPERVISED learning (no labels and uknown prior number of clusters)
+        - Entries : It uses BAG OF WORDS that dont consider the orders of words
+        - Outputs: Topics Matrix for words: represent the proba that a word is related to a topic / Documents Matrix for topics: proba that a doc is related to a topic.
+        - Challenges: Process to determine the size of the vocabulary / Process of vector creation for each document based on the words count.
+        
+
+        XXIII/ Deep Learning:
+          - Use of TensorFlow to build the models. Designed by Google Brain Team. TF is used for computer vision, NLP and voice recognition.tokenize
+          - From Linear Model to Neurons
+          - Several types of Neurons nets: ->Artifcial Neural Networks,
+                                           ->Convolutional Neural Networks (CNNs) specialized in structured data, 
+                                           ->Recurrent Neural Networks (RNNs) specialized for sequence data, time series, text or audio data, the RNNs are able to learn dependencies with time and context in the entry desventajas
+
+
+        XXIV/ Binary Classification with tensorflow:
+            (Spam Detection, Sentiment Analysis...)
+            -Data: entry is matrix X of size nxD, and the target is a vector of 0 and 1 for the 2 clases.
+            - In this context the matrix is n (number of rows, tokens or sentences) x D (total vocabulary in the corpus) like with tfidf
+            - Model and TF (tensorflow):
+                -> The first layer is the inputs one that receive the data with dimension D
+                -> The next layer is a dense layer, that realises a linear transformation (W^TX+b) where W is a weights matri and b the biais vector
+                -> Activation function: Sigmoid to map output between 0 and 1
+                -> Model compilation: We use binary_crossentropy as loss function and Adam as optimizer. The use of accuracy to evaluate the model.
+                ->Numerical Stability: Challenge: as the crossentropy uses log, being very far from the prediction could lead to infinite values. Solution: Tensorflow manages sigmoid and lossfunction to maximize the stability.
+
+
+        XXV/ Neuron:
+            entries: X1,...,Xp 
+            associated weigts : w1,...,wp
+            Activation Function: (Sigmooid, Tangente Hyperbolique, ReLU, Softmax ...) ex: Y=1/(1+e(mX+b)) for sigmoid
+            Output Y
+
+        XXVI/ Classif Multiclass:
+            Use of Softmax to get the porbability of each class for an entry, instead of an activation or non activation.
+            
+        XXVII/ Decypher embeddings in NLP: https://www.youtube.com/watch?v=7b8wGgshNus
+              What are embeddings? -> It's a vectorial represensation of a word that captures its essence and its relationship with other words.
+              In deep learning, this allows that a machine can understand text not as a serie of isolated words but more as an interconected serie of words and concepts.
+              Note that compared to OneHoteEncoding, word embedding is far more efficient (as onehot will add one column for each word to encode, which addsa lot of complexity)
+              In a neural network, each embedded word will be an entry, ready to be processed by the neuralnet.
+              The embeddings organize words in a geometrical space where the distance and the direction matters. Words that are more or less similar are close to each other geomtrycally.
+              This is a representation of the understanding of the human language.
+
+        Aspect                            Tokenization                                      Vectorization                                                   Embedding
+        Rôle                  Découper le texte en unités manipulables.             Transformer les tokens en vecteurs numériques simples.    Créer des vecteurs numériques riches et denses.
+        Sortie                Liste de tokens (souvent des chaînes de caractères).  Vecteurs numériques simples (BoW, TF-IDF, etc.).          Vecteurs denses et continus dans un espace vectoriel.
+        Complexité            Simple segmentation du texte.                         Transformation statistique ou comptage.                   Représentation riche, souvent basée sur des modèles pré-entraînés.
+        Exemple               ["Je", "vais", "au", "marché"]                           [1, 1, 1, 1]                                            [0.15, 0.27, 0.45, ...] (vecteurs denses)
+  Relations sémantiques        Non capturées.                                        Faiblement capturées (dépend de la méthode).           Capturées de manière contextuelle et relationnelle.
+
+
+        XVIII/ Convolution (image processing)
+          Convolution is a simple matematical operation that consists in sum and multiply. It's fuundamental for the signal processing and computer vision.
+          In the context of image, convolution implies a entry image, a filter and products an output image;
+          In neural nets, filters are automatically learned to achieve tasks like recognize patterns or caracteristics in images.
+          Even tho some libraries of deep learning allow to perform these operations, it's important to understand how convolutional neural nets work.
+          We will later see how it is in NLP.
+          Convolution is like a magic filter that changes input image in a way we define thanks to the type of filter.
+          In the world of neural networks, the instructions are not decided by us, the neural net automatically learns what are the best instructions to perform the final task (like recognize objeects)
+          However, there are some technics that allow us to control how we want the output image to be.
+          Image matrix I (n.p) * K (s.s) = Output image. https://www.youtube.com/watch?v=DdpYW_PIiXk
+          Pattern Matching : Is a technic that allow to check the presence of some patterns in a dataset. It is used NLP, text processing, computer vision...
+          In NLP it is more specifcally used to find patterns in the sentences.
+          From this perspective, a filter (or convolution) behaves like a pattern detector regarding the input.
+          When the pattern of the filter and a segment of the image coincide, the result is a high value, indicating a strong presence of the pattern in this position of the image.tokenize
+          Weight Sharing: Dans une couche convolutive, un même filtre (ensemble de poids) est appliqué sur toutes les parties de l'image, c'est-à-dire qu'il "parcourt" l'image entière en glissant (via un processus appelé stride).
+          Cela signifie que les poids du filtre sont partagés sur toutes les positions de l'image. En d'autres termes, le même ensemble de poids est utilisé pour détecter une caractéristique particulière (par exemple, un bord horizontal) indépendamment de sa position dans l'image.
+          Avantages :
+          Réduction des paramètres : Comparé à un réseau dense où chaque pixel serait connecté à chaque poids, le partage des poids dans les CNN réduit considérablement le nombre
+           de paramètres, rendant l'entraînement plus efficace.
+          Invariance spatiale : Cela permet au réseau d'apprendre à reconnaître un motif (par exemple, une forme circulaire) où qu'il soit dans l'image, ce qui est crucial pour
+           des tâches comme la classification ou la détection d'objets.
+          Dans les modèles de NLP modernes, comme les transformateurs (BERT, GPT), les poids sont souvent partagés pour optimiser la gestion des données textuelles.
+
+          Applications spécifiques :
+          Poids partagés dans les embeddings :
+
+          Les couches d'embedding transforment des mots (ou des tokens) en représentations vectorielles.
+          Les poids utilisés pour encoder les mots peuvent être partagés avec ceux utilisés pour décoder les mots (dans les modèles séquentiels ou génératifs comme les auto-encodeurs ou les modèles de traduction).
+          Exemple : Dans un modèle seq2seq (sequence-to-sequence), les poids d'entrée et de sortie peuvent être les mêmes, ce qui simplifie le modèle.
+          Poids partagés entre les couches :
+
+          Dans les modèles de type transformateur, plusieurs couches sont empilées pour encoder les relations entre les tokens. Le partage de poids entre ces couches permet de réduire le nombre de paramètres et d'éviter un surajustement.
+          Exemple : Dans certains transformateurs légers, une même couche est utilisée plusieurs fois pour traiter les données, au lieu d'entraîner des couches séparées pour chaque étape.
+          Avantages :
+          Réduction de la taille du modèle : Le partage de poids diminue la mémoire nécessaire, ce qui est important pour les modèles massifs comme GPT qui doivent traiter de grandes quantités de données.
+          Amélioration de la généralisation : En partageant les poids, le modèle est encouragé à trouver des représentations plus robustes qui s'appliquent de manière cohérente à travers les données.
+          Efficacité computationnelle : Cela réduit les coûts de calculs lors de l'entraînement et de l'inférence.
+
+
+          XIX/ Convolution with colored images:
+              When the shades of grey images are in 2 dimensions (height and width) the colored ones add a third dimension which is the color (rgb).
+              So to manage that, we need 3D filters as well. Knowing that, the 3D filtlers will be same idea (sum and multiply) but extended to the 3 dimensions.
+              Note that the result will be 2D, even the entry and the filter are 3D.
+              This non-uniformity between input and output dimension brings and issue: It's becomes then impossible to successively apply layers of convolutions as the dim dont coincide.
+              Solution: Mutiple filters: each filter will detect one different caracteristic in the image (edges, textures, ...). Applying multiple filter to an imge, we 
+              obtain multiple bidimensional images as output. 
+              Image (100x100) => Convolutional layer => Pooling layer (50x50) => Dense layer (Neural net) => output
+                                              <================
+
+              Pooling layer: Max pooling and average pooling https://www.youtube.com/watch?v=TOWEfDPRe-A
+              Why pooling is important? Reduce the quantity of information, so reduce computing needs. It also helps smoothing, reducing variablity. 
+
+              CNNs learns pattern and caracteritics in a hierarchical way; the first layers learn easy patterns while last layers learn eeper details. 
+              As the image reduces through pooling layers the filters cover proportionnaly larger areas, allowing to detect larger and more complex patterns.
+              
+
+            NEXT CHAPTERS TO LEARN: 
+              - GIT
+              - ETL
+              - Cloud (GBQ, AWS)
+              - Shcéma en étoile et flocon de neige
+              - Data warehouse, datalakes, Data mesh
+              - Doker, Kubernetes
+
+
+
+
+
+
+
+Reminders:
+->Fonction d'activation
+Rôle : La fonction d'activation transforme les sorties d'un neurone en une valeur comprise dans une plage spécifique, souvent pour représenter des probabilités dans les problèmes de classification.
+Exemple typique en classification binaire : La fonction sigmoïde.
+La sigmoïde transforme la sortie 
+𝑧
+z (souvent un score linéaire) en une probabilité : phi(z) = 1/(1+exp(-z))
+
+Elle produit une valeur entre 0 et 1, ce qui est idéal pour interpréter la sortie comme une probabilité pour la classe positive.
+Pourquoi elle est importante :
+Elle permet au modèle de "prendre une décision" (0 ou 1) en fonction d'un seuil, généralement 0.5.
+
+->Fonction de perte (Loss function)
+Rôle : La fonction de perte mesure l'écart entre la prédiction du modèle et la vérité terrain (valeurs réelles).
+Exemple typique : La binary cross-entropy (entropie croisée binaire).
+
+La formule pour une observation est :
+Loss=−(𝑦 log(𝑦^)) + (1−𝑦)log⁡(1−𝑦^))
+y est la classe réelle (0 ou 1), et y^ est la probabilité prédite.
+Cette fonction pénalise fortement les prédictions qui s'éloignent des valeurs réelles.
+Pourquoi elle est importante :
+
+Elle guide le modèle en indiquant si les prédictions sont bonnes ou mauvaises. Le but est de minimiser cette fonction pendant l'entraînement.
+
+##Résumé du processus
+Le modèle calcule une sortie grâce à la fonction d'activation (par ex. sigmoïde).
+La fonction de perte compare cette sortie à la vérité terrain pour évaluer l'erreur.
+L'optimiseur ajuste les poids du modèle en minimisant l'erreur.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################    END  ################################################# 
+
+
+
+
+Tokenization : Convertit le texte brut en tokens compréhensibles pour le modèle.
+Embeddings : Transforme les tokens en vecteurs numériques, contenant des informations sémantiques et contextuelles.
+
+
+Bien sûr ! Faisons un tour d’horizon des concepts principaux du NLP (traitement du langage naturel), en abordant TF-IDF, les modèles de langage et BERT, en ciblant un niveau adapté pour un data scientist.
+
+1. Qu'est-ce que le Traitement du Langage Naturel (NLP) ?
+Le NLP consiste à permettre aux ordinateurs de comprendre, d'interpréter et de générer du langage humain. C'est un domaine où la science des données, le machine learning, et l'intelligence artificielle jouent un rôle essentiel pour traiter le texte, en vue de tâches telles que la traduction automatique, l'analyse de sentiments, la classification de texte, la reconnaissance d'entités nommées, et plus encore.
+
+Les techniques de NLP varient en complexité, allant des approches statistiques simples à des modèles de deep learning très avancés comme BERT, qui permettent une meilleure compréhension contextuelle des mots et des phrases.
+
+
+
+
+2. TF-IDF : Term Frequency-Inverse Document Frequency
+TF-IDF est une méthode statistique utilisée pour mesurer l'importance d'un mot dans un document par rapport à un ensemble de documents (corpus). Elle est souvent utilisée pour la pondération dans des tâches de classification de texte et de recherche d'information.
+
+Concepts clés :
+
+Term Frequency (TF) : C'est la fréquence d'apparition d'un mot dans un document. Si un mot apparaît fréquemment dans un document, on peut supposer qu'il a une certaine importance dans le contexte de ce document.
+
+nverse Document Frequency (IDF) : L'IDF mesure l'importance d'un mot dans l'ensemble du corpus. Si un mot apparaît dans de nombreux documents, il est moins discriminant et donc moins important. L'IDF est calculé comme le logarithme du rapport entre le nombre total de documents et le nombre de documents contenant le mot en question
+
+TF-IDF : Ce score combine les deux mesures pour pondérer un mot en fonction de sa fréquence dans un document (TF) et de sa rareté dans le corpus (IDF). Le score final est donné par :
+
+
+Cette méthode permet de filtrer les mots "communs" dans les documents, car leur poids sera faible, tandis que les mots rares mais importants dans le contexte d'un document auront un poids élevé. Cela est utile pour la recherche d'information et les moteurs de recherche, mais aussi comme vecteur d'entrée dans les algorithmes de machine learning.
+
+
+3. Modèles de Langage Avancés et BERT
+Avec l'avènement des architectures de deep learning, les modèles de langage ont évolué, permettant une compréhension plus contextuelle du langage. L'un des plus populaires est BERT (Bidirectional Encoder Representations from Transformers).
+
+Transformer : La Base de BERT
+Le Transformer est une architecture qui repose sur le mécanisme d'attention, qui permet au modèle de se concentrer sur différentes parties d'une séquence d'entrée lorsqu'il génère une sortie. L'attention est particulièrement utile pour capturer les dépendances entre mots, même ceux éloignés dans une phrase.
+
+Les Transformers utilisent une attention multi-tête pour apprendre différentes représentations contextuelles des mots, et ils sont composés d'encoders (pour encoder la séquence) et de decoders (pour générer la séquence, surtout pour la traduction automatique). BERT utilise uniquement la partie encoder.
+
+BERT : Compréhension Bidirectionnelle
+BERT est un modèle de Transformer bidirectionnel, ce qui signifie qu'il lit une phrase dans les deux sens en même temps. Cela lui permet de capturer le contexte complet d'un mot, en tenant compte des mots avant et après lui dans une phrase, ce qui est crucial pour comprendre les ambiguïtés du langage naturel.
+
+Pré-entraînement : BERT est pré-entraîné sur deux tâches principales :
+
+Masked Language Model (MLM) : Une partie des mots d'une phrase est masquée (remplacée par un token spécial [MASK]), et le modèle doit prédire ces mots masqués. Cela l'oblige à apprendre le contexte bidirectionnel.
+Next Sentence Prediction (NSP) : Le modèle reçoit deux phrases et doit prédire si la seconde phrase suit la première dans un texte. Cela améliore la compréhension des relations entre phrases.
+Fine-tuning : BERT peut être facilement adapté à des tâches spécifiques de NLP (classification, analyse de sentiments, questions-réponses, etc.) en ajoutant un classifieur en sortie et en ré-entraîne le modèle sur un jeu de données spécifique.
+
+Utilisation de BERT dans la pratique
+BERT génère des vecteurs pour chaque mot ou token, appelés embeddings, qui capturent le sens contextuel des mots. Ces vecteurs sont ensuite utilisés pour la classification de texte, la détection d'entités nommées, ou toute autre tâche NLP. Le modèle existe en différentes tailles (comme BERT-Base et BERT-Large), et des variantes comme DistilBERT ou RoBERTa ont été développées pour être plus rapides ou plus performantes selon les cas d'usage.
+
+Exemple de Pipeline d'utilisation de BERT :
+
+Tokenisation : Le texte est d'abord tokenisé pour que chaque mot ou sous-mot corresponde à un token BERT.
+Encodage avec BERT : Le modèle génère des embeddings pour chaque token.
+Classification : Les embeddings sont passés dans une couche dense (ou plusieurs) pour une classification ou autre tâche.
+
+
+En Résumé
+TF-IDF est une méthode efficace pour pondérer les mots en fonction de leur importance dans un document, mais elle ne capture pas le contexte des mots dans une phrase.
+BERT est un modèle avancé basé sur les Transformers, capable de capturer les subtilités contextuelles du langage grâce à son entraînement bidirectionnel et sa capacité à traiter de grandes quantités de données pour comprendre le langage humain dans son ensemble.
+Ces techniques, bien que différentes en complexité et en applications, sont complémentaires dans le cadre du NLP moderne. TF-IDF reste utile pour des tâches rapides ou avec peu de données, tandis que BERT est l'outil de choix pour des applications nécessitant une compréhension approfondie du texte.
+
