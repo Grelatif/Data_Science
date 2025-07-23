@@ -26,3 +26,33 @@ Documenter l'utilisation de Git et des environnements virtuels (`venv`) pour gé
 - Placer les fichiers à la racine de chaque sous-projet (facilite l'organisation et l'accès).
 - **Intérêt** : Permet de gérer plusieurs projets indépendamment sans mélange de dépendances, facilitant la maintenance et l'évolutivité.
 
+# Bonne pratiques 
+
+## Structure Projet
+mon-projet/
+│
+├── data/
+│   ├── raw/          # Données brutes (non versionnées)
+│   ├── processed/    # Données nettoyées (non versionnées)
+│   └── sample/       # Échantillons légers pour test (versionnés si petit)
+│
+├── notebooks/        # Jupyter notebooks
+├── src/              # Code source Python (modules, fonctions)
+├── models/           # Modèles enregistrés (non versionnés)
+├── outputs/          # Graphiques, résultats (optionnel)
+├── requirements.txt  # Dépendances Python
+├── environment.yml   # (si tu utilises conda)
+├── README.md
+├── .gitignore
+└── .env              # Variables d’environnement (jamais push sur GitHub)
+
+## Notebooks 
+- Bien documenter les notebooks.
+- Utiliser un format clair : 1 notebook = 1 étape (exploration, modélisation, évaluation…)
+
+## README
+Inclure :
+- Objectif du projet
+- Données utilisées (et où les trouver)
+- Instructions pour exécuter le code
+- Organisation du projet
