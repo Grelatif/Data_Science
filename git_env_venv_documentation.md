@@ -29,6 +29,8 @@ Documenter l'utilisation de Git et des environnements virtuels (`venv`) pour gé
 # Bonne pratiques 
 
 ## Structure Projet
+
+```
 mon-projet/
 │
 ├── data/
@@ -45,6 +47,7 @@ mon-projet/
 ├── README.md
 ├── .gitignore
 └── .env              # Variables d’environnement (jamais push sur GitHub)
+```
 
 ## Notebooks 
 - Bien documenter les notebooks.
