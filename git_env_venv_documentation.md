@@ -26,7 +26,3 @@ Documenter l'utilisation de Git et des environnements virtuels (`venv`) pour gé
 - Placer les fichiers à la racine de chaque sous-projet (facilite l'organisation et l'accès).
 - **Intérêt** : Permet de gérer plusieurs projets indépendamment sans mélange de dépendances, facilitant la maintenance et l'évolutivité.
 
-## Prochaines Étapes
-- Explorer d'autres commandes Git (ex. `git pull`, `git branch`) pour collaborer ou gérer des versions.
-- Tester avec un nouveau sous-projet pour appliquer ces concepts.
-- **Intérêt** : Prépare à une utilisation avancée et pratique des outils, améliorant les compétences et l'efficacité.
