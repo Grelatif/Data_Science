@@ -145,7 +145,11 @@ Si vous n’utilisez pas `.gitignore` :
 
 ## Check the modifications made on the staging files 
 L'idée est de comparer ce qu'on a changé entre le dernier commit (ref) et la staging area actuelle.
-Pour ce faire on utilise la commande " git diff --staged".
+Pour ce faire on utilise la commande 
+```bash
+git diff --staged
+```
+
 Cela nous mettra en évidence les lignes ajoutées/supprimées dans les fichiers de la staging area (par rapport au fichier du dernier commit)
 Si on utilise "git diff" sans le --staged, on compare la staging area (ref) avec le working directory. 
 
@@ -164,7 +168,10 @@ git ls -tree pour l'ensemble du snapshot d'un commit
 On pourrait vouloir unstage des fichiers (par exemple parce qu'on pense que les modifs devraient faire partie d'un autre commit, car partie d'une autre tache que celle associée à ce commit.)
 Pour ce faire on va utiliser la commande git restore.
 Si on veut unstage le file1.txt de la staging area: 
-git restore --staged file1.txt (on peut utilsier des patterns avec * ou prendre tous les fichiers avec .)
+```bash
+git restore --staged file1.txt
+```
+(on peut utilsier des patterns avec * ou prendre tous les fichiers avec .)
 
 ## Discard local changes
 On utilise git clean pour remove des fichiers "untracked" (pas dans la staging area et pas de commit)
@@ -189,4 +196,6 @@ cela sert à :
 - Remplacement partiel de commandes obsolètes : Depuis Git 2.23 (2019), git restore remplace en partie git checkout pour certaines opérations de restauration, offrant une syntaxe plus claire.
 
 On peut restore par rapport a l'ID d'un ancien commit:
+```bash
 git restore --source=ghi7890 --staged README.md
+```
