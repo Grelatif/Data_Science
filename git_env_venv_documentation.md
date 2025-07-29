@@ -88,48 +88,66 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-# 3. Installe les dépendances
+3. Installe les dépendances
+```
 pip install -r requirements.txt
+```
 
-✅ 4. (Optionnel mais recommandé) : rendre le venv disponible comme noyau Jupyter
+4. (Optionnel mais recommandé) : rendre le venv disponible comme noyau Jupyter
+```
 pip install ipykernel
 python -m ipykernel install --user --name=series-env --display-name "Python (series-env)"
+```
 
-✅ 5. Crée un fichier .gitignore pour ignorer le venv et les fichiers inutiles
+5. Crée un fichier .gitignore pour ignorer le venv et les fichiers inutiles
+```
 touch .gitignore
 code .gitignore
+```
 
-.venv/
-__pycache__/
-.ipynb_checkpoints/
-.env
-.DS_Store
+.venv/  
+__pycache__/  
+.ipynb_checkpoints/  
+.env  
+.DS_Store  
 
-✅ 6. (Optionnel) Crée un fichier README.md
+6. (Optionnel) Crée un fichier README.md
+```
 echo "# Projet Séries Temporelles" > README.md
+```
 
-✅ 7. Crée un notebook si ce n’est pas encore fait
+7. Crée un notebook si ce n’est pas encore fait
+```
 code mon_projet.ipynb
-Et choisis bien le noyau "Python (series-env)".
+```
+Et choisir le noyau "Python (series-env)".  
 
-✅ 8. 🗂️ Ajoute tout à Git (sauf .venv, qui est ignoré)
+8. 🗂️ Ajouter tout à Git (sauf .venv, qui est ignoré)
+```
 git add .gitignore requirements.txt README.md mon_projet.ipynb
+```
 
-✅ 9. Commit tes modifications
+9. Commit tes modifications
+```
 git commit -m "Initial setup: venv + requirements + notebook + gitignore"
+```
 
-✅ 10. Push vers GitHub
+10. Push vers GitHub
+```
 git push
-Si c’est la première fois et que ton dépôt n’existe pas encore sur GitHub, fais :
+```
+Si c’est la première fois et que le dépôt n’existe pas encore sur GitHub, faire :
+```
 git remote add origin <url_du_dépôt>
 git branch -M main
 git push -u origin main
+```
 
-✅ Résultat : tu as maintenant
-un projet proprement structuré
-un venv local (non versionné)
-des dépendances listées dans requirements.txt
-un notebook fonctionnel avec le bon noyau
+11. Résultat : 
+un projet proprement structuré  
+un venv local (non versionné)  
+des dépendances listées dans requirements.txt  
+un notebook fonctionnel avec le bon noyau  
 tout sauvegardé sur GitHub
 
 
