@@ -73,18 +73,20 @@ code requirements.txt
 Mettre les libs:
 
 pandas  
-numpy
-matplotlib
-scikit-learn
-statsmodels
-prophet
-jupyter
+numpy  
+matplotlib  
+scikit-learn  
+statsmodels  
+prophet  
+jupyter  
 ...
 
 
-# 2. Crée et active un environnement virtuel Python
+2. Crée et active un environnement virtuel Python
+```
 python3 -m venv .venv
 source .venv/bin/activate
+```
 
 # 3. Installe les dépendances
 pip install -r requirements.txt
