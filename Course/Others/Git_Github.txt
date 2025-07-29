@@ -1,0 +1,45 @@
+
+
+################# Git ###################
+
+- Version control
+- Open Source
+
+
+
+################## GitHub ################
+- Collaboeation website that uses git
+- Hosts git repositories
+
+
+
+ ################## GitHub Workflow: ##################
+5 steps on how to introduce change
+Project stored in a repo, and all the code for the production in on the "Master" branch
+1/ Branching : 
+Use a branch to work on a sandbox (replica of master) without affecting anything in prod. 
+
+2/ Commits: 
+Whenever we make a set of changes, we make it commit and it sores all these changes (making a snapshot of this repo)
+
+3/ Pull Request: 
+Compare 2 branches (like master and current branch for example), and show other people the changes as well
+
+4/ Collaborate: 
+Get the critics of other people regarding our modifications
+
+5/Merge:
+Taking the current branch and the commits, pushing them to master
+#############################################################
+
+Fork: Extract a copy of repository under YOUR account
+Why: Permission access
+
+
+#################### Cloning Repo and work locally ###########
+
+
+
+
+
+
