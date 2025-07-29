@@ -72,7 +72,7 @@ Inclure :
 code requirements.txt  
 Mettre les libs:
 
-pandas
+pandas  
 numpy
 matplotlib
 scikit-learn
