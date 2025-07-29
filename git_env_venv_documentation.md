@@ -66,9 +66,9 @@ Inclure :
 
 # Create Venv codespace
 
-✅ 0.Creer le requirement.txt 
+# 0.Creer le requirement.txt 
 Étapes complètes à suivre (après touch requirements.txt) :
-✅ 1. ✍️ Remplis le requirements.txt
+# 1. ✍️ Remplis le requirements.txt
 code requirements.txt
 Mettre les libs:
 
@@ -82,11 +82,11 @@ jupyter
 ...
 
 
-✅ 2. Crée et active un environnement virtuel Python
+# 2. Crée et active un environnement virtuel Python
 python3 -m venv .venv
 source .venv/bin/activate
 
-✅ 3. Installe les dépendances
+# 3. Installe les dépendances
 pip install -r requirements.txt
 
 ✅ 4. (Optionnel mais recommandé) : rendre le venv disponible comme noyau Jupyter
