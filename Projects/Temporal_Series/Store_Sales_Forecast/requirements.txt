@@ -5,5 +5,12 @@ scikit-learn
 statsmodels
 prophet
 jupyter
+pandas
+numpy
+matplotlib
+scikit-learn
+statsmodels
+prophet
+jupyter
 seaborn
 plotly
