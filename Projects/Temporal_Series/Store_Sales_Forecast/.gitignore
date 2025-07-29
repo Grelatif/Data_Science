@@ -3,3 +3,5 @@ pycache/
 .ipynb_checkpoints/
 .env
 .DS_Store
+data/*.csv
+data/**/*.csv
