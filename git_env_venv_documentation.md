@@ -66,10 +66,10 @@ Inclure :
 
 # Create Venv codespace
 
-# 0.Creer le requirement.txt 
+0. Creer le requirement.txt 
 Étapes complètes à suivre (après touch requirements.txt) :
-# 1. ✍️ Remplis le requirements.txt
-code requirements.txt
+1. ✍️ Remplis le requirements.txt
+code requirements.txt  
 Mettre les libs:
 
 pandas
