@@ -59,3 +59,77 @@ Inclure :
 - Données utilisées (et où les trouver)
 - Instructions pour exécuter le code
 - Organisation du projet
+
+
+
+
+
+# Create Venv codespace
+
+✅ 0.Creer le requirement.txt 
+Étapes complètes à suivre (après touch requirements.txt) :
+✅ 1. ✍️ Remplis le requirements.txt
+code requirements.txt
+Mettre les libs:
+
+pandas
+numpy
+matplotlib
+scikit-learn
+statsmodels
+prophet
+jupyter
+...
+
+
+✅ 2. Crée et active un environnement virtuel Python
+python3 -m venv .venv
+source .venv/bin/activate
+
+✅ 3. Installe les dépendances
+pip install -r requirements.txt
+
+✅ 4. (Optionnel mais recommandé) : rendre le venv disponible comme noyau Jupyter
+pip install ipykernel
+python -m ipykernel install --user --name=series-env --display-name "Python (series-env)"
+
+✅ 5. Crée un fichier .gitignore pour ignorer le venv et les fichiers inutiles
+touch .gitignore
+code .gitignore
+
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.env
+.DS_Store
+
+✅ 6. (Optionnel) Crée un fichier README.md
+echo "# Projet Séries Temporelles" > README.md
+
+✅ 7. Crée un notebook si ce n’est pas encore fait
+code mon_projet.ipynb
+Et choisis bien le noyau "Python (series-env)".
+
+✅ 8. 🗂️ Ajoute tout à Git (sauf .venv, qui est ignoré)
+git add .gitignore requirements.txt README.md mon_projet.ipynb
+
+✅ 9. Commit tes modifications
+git commit -m "Initial setup: venv + requirements + notebook + gitignore"
+
+✅ 10. Push vers GitHub
+git push
+Si c’est la première fois et que ton dépôt n’existe pas encore sur GitHub, fais :
+git remote add origin <url_du_dépôt>
+git branch -M main
+git push -u origin main
+
+✅ Résultat : tu as maintenant
+un projet proprement structuré
+un venv local (non versionné)
+des dépendances listées dans requirements.txt
+un notebook fonctionnel avec le bon noyau
+tout sauvegardé sur GitHub
+
+
+
+
