@@ -5,3 +5,15 @@ pycache/
 .DS_Store
 data/*.csv
 data/**/*.csv
+
+# Ignorer l'environnement virtuel local
+.venv/
+../../../.venv/
+
+# Ignorer les fichiers de données brutes
+data/
+!data/README.md
+
+# Ignorer les fichiers hors du dossier projet
+../../../README.md
+../../../git_env_venv_documentation.md
