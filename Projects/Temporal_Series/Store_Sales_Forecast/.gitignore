@@ -14,7 +14,7 @@ pycache/
 ../../../.venv/
 
 # Ignorer les fichiers de données brutes
-#data/
+data/raw/
 #!data/README.md
 
 # Ignorer les fichiers hors du dossier projet
